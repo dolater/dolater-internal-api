@@ -4,6 +4,7 @@ go 1.23.3
 
 require (
 	firebase.google.com/go/v4 v4.15.1
+	github.com/deckarep/golang-set/v2 v2.7.0
 	github.com/gin-gonic/gin v1.10.0
 	github.com/google/uuid v1.6.0
 	github.com/joho/godotenv v1.5.1
