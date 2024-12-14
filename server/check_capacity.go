@@ -9,6 +9,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+const parameterName = "task_pool_capacity"
+
 func (s *Server) CheckCapacity(c *gin.Context) {
 	db, err := db.GormDB("public")
 	if err != nil {
@@ -25,6 +27,8 @@ func (s *Server) CheckCapacity(c *gin.Context) {
 		}
 		sqldb.Close()
 	}()
+
+	log.Println(s.RemoteConfig.Parameters[parameterName].DefaultValue.Value)
 
 	c.Status(http.StatusNoContent)
 }
