@@ -108,8 +108,8 @@ func (s *Server) CheckCapacity(c *gin.Context) {
 			notifications[i] = model.Notification{
 				Id:     uuid.New(),
 				UserId: taskPool.OwnerId,
-				Title:  "あとまわしリンクが溢れました!!",
-				Body:   "",
+				Title:  "時間切れです",
+				Body:   "あなたのあとまわしリンクがあふれました",
 				URL:    "https://dolater.kantacky.com/tasks/" + task.Id.String(),
 			}
 			messages[i] = &messaging.MulticastMessage{
