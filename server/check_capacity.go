@@ -50,7 +50,6 @@ func (s *Server) CheckCapacity(c *gin.Context) {
 			c.JSON(http.StatusInternalServerError, api.Error{
 				Message: &message,
 			})
-			return
 		}
 	}
 
@@ -73,13 +72,13 @@ func (s *Server) CheckCapacity(c *gin.Context) {
 		}
 
 		elapsedSeconds := 0.0
-		var i int
+		var i = 0
 		for j, task := range tasks {
+			elapsedSeconds += now.Sub(task.CreatedAt).Seconds()
+			i = j
 			if elapsedSeconds > capacity {
-				i = j
 				break
 			}
-			elapsedSeconds += now.Sub(task.CreatedAt).Seconds()
 		}
 
 		if i >= len(tasks)-1 {
