@@ -105,6 +105,36 @@ func (s *Server) CheckCapacity(c *gin.Context) {
 		notifications := make([]model.Notification, len(overflowedTasks))
 		messages := make([]*messaging.MulticastMessage, len(overflowedTasks))
 		for i, task := range overflowedTasks {
+			taskOwner := model.User{
+				Id: taskPool.OwnerId,
+			}
+			if err := db.
+				First(&taskOwner).
+				Error; err != nil {
+				if !errors.Is(err, gorm.ErrRecordNotFound) {
+					continue
+				}
+			}
+			pool := model.TaskPool{
+				OwnerId: taskOwner.Id,
+				Type:    "taskPoolTypePending",
+			}
+			if err := db.
+				First(&pool).
+				Error; err != nil {
+				if !errors.Is(err, gorm.ErrRecordNotFound) {
+					continue
+				}
+			}
+
+			updatingTask := model.Task{
+				Id:     task.Id,
+				PoolId: &pool.Id,
+			}
+
+			if err := db.Updates(&updatingTask).Error; err != nil {
+				continue
+			}
 			notifications[i] = model.Notification{
 				Id:     uuid.New(),
 				UserId: taskPool.OwnerId,
