@@ -17,7 +17,7 @@ import (
 )
 
 // const parameterName = "task_pool_capacity"
-const capacity = 604800
+const capacity = 60 * 60 * 24 * 7
 
 func (s *Server) CheckCapacity(c *gin.Context) {
 	db, err := db.GormDB("public")
