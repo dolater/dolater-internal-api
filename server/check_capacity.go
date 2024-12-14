@@ -50,6 +50,7 @@ func (s *Server) CheckCapacity(c *gin.Context) {
 			c.JSON(http.StatusInternalServerError, api.Error{
 				Message: &message,
 			})
+			return
 		}
 	}
 
