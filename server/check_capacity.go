@@ -115,11 +115,12 @@ func (s *Server) CheckCapacity(c *gin.Context) {
 					continue
 				}
 			}
-			pool := model.TaskPool{
-				OwnerId: taskOwner.Id,
-				Type:    "taskPoolTypePending",
-			}
+			var pool model.TaskPool
 			if err := db.
+				Where(&model.TaskPool{
+					OwnerId: taskOwner.Id,
+					Type:    "taskPoolTypePending",
+				}).
 				First(&pool).
 				Error; err != nil {
 				if !errors.Is(err, gorm.ErrRecordNotFound) {
