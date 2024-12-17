@@ -2,6 +2,11 @@
 
 [![CI](https://github.com/dolater/dolater-internal-api/actions/workflows/ci.yaml/badge.svg)](https://github.com/dolater/dolater-internal-api/actions/workflows/ci.yaml)
 
+## Related Repositories
+- [iOS App](https://github.com/dolater/dolater-ios)
+- [API](https://github.com/dolater/dolater-api)
+- [API (Internal)](https://github.com/dolater/dolater-internal-api)
+
 ## Environment Variables
 
 | Name                           | Default Value | Description                                 |
